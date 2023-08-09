@@ -1,50 +1,52 @@
-const body = document.body
-// body.style.display = 'flex'
-// body.style.justifyContent = 'center'
-// body.style.alignItems = 'center'
-body.style.height = '100vh'
-body.style.margin = '0'
+const resetBtn = document.querySelector('#reset-btn')
+const gridContainer = document.querySelector('#container')
+const newGrid = document.querySelector('#new-grid')
 
-const gridContainer = document.createElement('div')
-gridContainer.id = 'container'
-gridContainer.style.display = 'grid'
-gridContainer.style.gridTemplateColumns = 'repeat(16, 30px);'; // Example
-gridContainer.style.gridTemplateRows = 'repeat(16, 30px);'; // Example
-gridContainer.style.gap = '1px';
-gridContainer.style.backgroundColor = '#333'
-
-
-body.append(gridContainer)
 
 
 function createGrid(rows, cols) {
-    const gridContainer = document.getElementById("container");
+    // gridContainer.innerHTML = ''; // Clear existing grid
 
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
             const gridItem = document.createElement("div");
-            gridItem.style.width = '100%'
-            gridItem.style.height = '100%'
-            gridItem.style.backgroundColor = 'white'
-            gridItem.style.border = '1px solid #222'
-            gridItem.style.transition = 'background-color 0.3s ease-in-out'
 
             gridItem.classList.add("grid-item");
             gridContainer.append(gridItem);
             gridItem.addEventListener('mouseenter', () => {
-                gridItem.style.backgroundColor = 'red';
+                gridItem.style.backgroundColor = 'gold';
             })
-            gridItem.addEventListener('mouseleave', () => {
-                gridItem.style.backgroundColor = 'white';
-            });
         }
     }
 
 }
 
 // Call the function to create a 16x16 grid
-createGrid(16, 16);
+createGrid(16, 16)
 
+function clearGrid() {
+    const cells = gridContainer.querySelectorAll('.grid-item');
+    cells.forEach(gridItem => {
+        gridItem.style.backgroundColor = 'white';
+    });
+
+}
+
+
+resetBtn.addEventListener('click', clearGrid)
+
+newGrid.addEventListener('click', () => {
+   const number = parseInt(prompt('Enter a grid size')) 
+
+   if(!isNaN(number)) {
+    console.log(`You entered ${number}`);
+    createGrid(number)
+
+   } else {
+    alert('Please enter a grid size that is less or equal to 100') // insert text NB
+   }
+
+})
 
 
 
